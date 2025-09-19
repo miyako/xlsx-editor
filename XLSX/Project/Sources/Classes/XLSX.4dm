@@ -81,6 +81,8 @@ Function update($option : Variant) : cs:C1710.XLSX
 	
 	var $commands : Collection
 	$commands:=[]
+	var $workers : Collection
+	$workers:=[]
 	
 	For each ($option; $options)
 		
@@ -161,24 +163,20 @@ Function update($option : Variant) : cs:C1710.XLSX
 			End for each 
 		End for each 
 		
-		var $json : 4D:C1709.File
-		$json:=Folder:C1567(Temporary folder:C486; fk platform path:K87:2).file(Generate UUID:C1066+".json")
-		$json.setText(JSON Stringify:C1217($data))
-		
 		$command:=This:C1470.escape(This:C1470.executablePath)
 		$command+=" "
 		$command+=This:C1470.escape($file)
 		$command+=" "
 		$command+=This:C1470.escape(This:C1470.expand($output).path)
-		$command+=" "
-		$command+=This:C1470.escape($json.path)
 		
-		$commands.push($command)
+		$worker:=This:C1470.controller.execute($command; $data).worker
+		$workers.push($worker)
 		
 	End for each 
 	
-	This:C1470.controller.execute($commands)
-	
-	This:C1470.worker.wait()
+	var $worker : 4D:C1709.SystemWorker
+	For each ($worker; $workers)
+		$worker.wait()
+	End for each 
 	
 	return This:C1470

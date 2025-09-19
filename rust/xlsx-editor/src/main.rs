@@ -2,6 +2,7 @@ use std::env;
 use std::error::Error;
 use std::fs;
 use std::path::Path;
+use std::io::{self, Read};
 
 use serde::Deserialize;
 use serde_json::Value;
@@ -16,19 +17,34 @@ struct EditSpec {
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
+
     let args: Vec<String> = env::args().collect();
-    if args.len() != 4 {
-        eprintln!("Usage: {} <input.xlsx|-> <output.xlsx> <spec.json>", args[0]);
+    
+    if args.len() < 3 || args.len() > 4 {
+        eprintln!(
+            "Usage: {} <input.xlsx|-> <output.xlsx> [spec.json]",
+            args[0]
+        );
         eprintln!("Use - as input to start from a new blank workbook.");
+        eprintln!("If spec.json is omitted, JSON will be read from stdin.");
         std::process::exit(1);
     }
 
-    let input_file = &args[1];
-    let output_file = &args[2];
-    let spec_file = &args[3];
+    // Read spec JSON (from file or stdin)
+    let raw = if args.len() == 4 {
+        let spec_file = &args[3];
+        fs::read_to_string(spec_file).expect("Failed to read spec.json")
+    } else {
+        let mut buffer = String::new();
+        io::stdin()
+            .read_to_string(&mut buffer)
+            .expect("Failed to read from stdin");
+        buffer
+    };
 
-    // Read JSON spec file
-    let raw = fs::read_to_string(spec_file)?;
+    let input_file = &args[1]; 
+    let output_file = &args[2];
+
     // Try to parse as an array first; otherwise, parse a single object
     let mut edits: Vec<EditSpec> = match serde_json::from_str(&raw) {
         Ok(v) => v,

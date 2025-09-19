@@ -16,6 +16,7 @@ Class constructor($CLI : cs:C1710._CLI)
 	
 	This:C1470._instance:=$CLI
 	This:C1470._commands:=[]
+	This:C1470._messages:=[]
 	This:C1470._worker:=Null:C1517
 	This:C1470._complete:=False:C215  //flag to indicate whether we have queued commands
 	
@@ -27,7 +28,7 @@ Function get complete()->$complete : Boolean
 	
 	$complete:=This:C1470._complete
 	
-Function get instance()->$instance : cs:C1710.loc
+Function get instance()->$instance : cs:C1710._CLI
 	
 	$instance:=This:C1470._instance
 	
@@ -37,20 +38,28 @@ Function get worker()->$worker : 4D:C1709.SystemWorker
 	
 	//MARK:-public methods
 	
-Function execute($command : Variant)
+Function execute($command : Variant; $message : Variant) : cs:C1710._CLI_Controller
 	
 	var $commands : Collection
+	var $messages : Collection
 	
 	Case of 
 		: (Value type:C1509($command)=Is text:K8:3)
 			$commands:=[$command]
+			$messages:=[$message]
 		: (Value type:C1509($command)=Is collection:K8:32)
 			$commands:=$command
+			If (Value type:C1509($message)=Is collection:K8:32) && ($message.length=$commands.length)
+				$messages:=$message
+			Else 
+				$messages[$commands.length-1]:=Null:C1517
+			End if 
 	End case 
 	
 	If ($commands#Null:C1517) && ($commands.length#0)
 		
 		This:C1470._commands.combine($commands)
+		This:C1470._messages.combine($messages)
 		
 		If (This:C1470._worker=Null:C1517)
 			This:C1470._onResponse:=This:C1470.onResponse
@@ -61,6 +70,8 @@ Function execute($command : Variant)
 		End if 
 		
 	End if 
+	
+	return This:C1470
 	
 Function terminate()
 	
@@ -105,6 +116,29 @@ Function _execute()
 	
 	This:C1470._complete:=False:C215
 	This:C1470._worker:=4D:C1709.SystemWorker.new(This:C1470._commands.shift(); This:C1470)
+	
+	var $message : Variant
+	$message:=This:C1470._messages.shift()
+	
+	var $vt : Integer
+	$vt:=Value type:C1509($message)
+	Case of 
+		: ($vt=Is object:K8:27) || ($vt=Is collection:K8:32)
+			
+			This:C1470._worker.postMessage(JSON Stringify:C1217($message))
+			This:C1470._worker.closeInput()
+			
+		: ($vt=Is BLOB:K8:12) || ($vt=Is text:K8:3)
+			
+			This:C1470._worker.postMessage($message)
+			This:C1470._worker.closeInput()
+			
+		: ($vt=Is real:K8:4) || ($vt=Is integer:K8:5) || ($vt=Is boolean:K8:9) || ($vt=Is date:K8:7) || ($vt=Is time:K8:8)
+			
+			This:C1470._worker.postMessage(String:C10($message))
+			This:C1470._worker.closeInput()
+			
+	End case 
 	
 Function _onComplete($worker : 4D:C1709.SystemWorker; $params : Object)
 	

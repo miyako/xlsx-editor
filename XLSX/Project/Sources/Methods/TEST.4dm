@@ -48,11 +48,12 @@ sync syntax (3 passes: use collection of objects)
 
 */
 
-$XLSX.update([\
-{file: $templateFile; values: $values; output: $outputFile}; \
-{file: $templateFile; values: $values; output: $outputFile}; \
-{file: $templateFile; values: $values; output: $outputFile}])
-
+If (True:C214)
+	$XLSX.update([\
+		{file: $templateFile; values: $values; output: Folder:C1567(fk desktop folder:K87:19).file("1.xlsx")}; \
+		{file: $templateFile; values: $values; output: Folder:C1567(fk desktop folder:K87:19).file("2.xlsx")}; \
+		{file: $templateFile; values: $values; output: Folder:C1567(fk desktop folder:K87:19).file("3.xlsx")}])
+End if 
 /*
 
 async syntax (must use in a worker or dialog)

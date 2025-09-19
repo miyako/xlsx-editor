@@ -20,6 +20,8 @@ basically `XSLX+JSON=XSLX`
 * set styles
 * batch process
 * asynchronous function call (requires worker or dialog)
+* GitHub Action CI/CD
+* dependcy manager
 
 ```4d
 /*

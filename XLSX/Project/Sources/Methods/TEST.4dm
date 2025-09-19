@@ -50,12 +50,12 @@ size: 14; \
 font: "Arial"; \
 stroke: "FFFF0000"; \
 fill: "FFFFFF00"; \
-h: "center"; \
-v: "center"; \
-l: {style: "thin"; color: "FF0000FF"}; \
-r: {style: "thin"; color: "FF0000FF"}; \
-t: {style: "double"; color: "FF00FF00"}; \
-b: {style: "double"; color: "FF00FF00"}}
+halign: "center"; \
+valign: "center"; \
+left: {style: "thin"; color: "FF0000FF"}; \
+right: {style: "thin"; color: "FF0000FF"}; \
+top: {style: "double"; color: "FF00FF00"}; \
+bottom: {style: "double"; color: "FF00FF00"}}
 
 /*
 
@@ -85,6 +85,10 @@ $XLSX:=cs:C1710.XLSX.new()
 
 1 pass: use object
 
+onData() is called for stdOut stream
+onDataError() is called for stdErr stream
+onResponse() is called when the export is complete
+
 */
 
 $XLSX.update({file: $templateFile; values: $values; output: $outputFile})
@@ -92,6 +96,9 @@ $XLSX.update({file: $templateFile; values: $values; output: $outputFile})
 /*
 
 3 passes: use collection of objects
+
+you can safely run this in a non-worker process
+you may stop receiving callbacks but workers will complete silently
 
 */
 

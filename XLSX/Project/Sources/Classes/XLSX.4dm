@@ -146,6 +146,43 @@ Function update($option : Variant) : cs:C1710.XLSX
 					If ($c.formula#Null:C1517) && (Value type:C1509($c.formula)=Is text:K8:3)
 						$datum.formula:=$c.formula
 					End if 
+					If ($c.bold#Null:C1517) && (Value type:C1509($c.bold)=Is boolean:K8:9)
+						$datum.bold:=$c.bold
+					End if 
+					If ($c.italic#Null:C1517) && (Value type:C1509($c.italic)=Is boolean:K8:9)
+						$datum.italic:=$c.italic
+					End if 
+					If ($c.size#Null:C1517) && (Value type:C1509($c.size)=Is real:K8:4)
+						$datum.size:=$c.size
+					End if 
+					If ($c.font#Null:C1517) && (Value type:C1509($c.font)=Is text:K8:3)
+						$datum.font:=$c.font
+					End if 
+					If ($c.stroke#Null:C1517) && (Value type:C1509($c.stroke)=Is text:K8:3)
+						$datum.stroke:=$c.stroke
+					End if 
+					If ($c.fill#Null:C1517) && (Value type:C1509($c.fill)=Is text:K8:3)
+						$datum.fill:=$c.fill
+					End if 
+					If ($c.halign#Null:C1517) && (Value type:C1509($c.halign)=Is text:K8:3)
+						$datum.halign:=$c.halign
+					End if 
+					If ($c.valign#Null:C1517) && (Value type:C1509($c.valign)=Is text:K8:3)
+						$datum.valign:=$c.valign
+					End if 
+					If ($c.left#Null:C1517) && (Value type:C1509($c.left)=Is object:K8:27)
+						$datum.left:=$c.left
+					End if 
+					If ($c.right#Null:C1517) && (Value type:C1509($c.right)=Is object:K8:27)
+						$datum.right:=$c.right
+					End if 
+					If ($c.top#Null:C1517) && (Value type:C1509($c.top)=Is object:K8:27)
+						$datum.top:=$c.top
+					End if 
+					If ($c.bottom#Null:C1517) && (Value type:C1509($c.bottom)=Is object:K8:27)
+						$datum.bottom:=$c.bottom
+					End if 
+					
 					$c:=$c.value
 				End if 
 				

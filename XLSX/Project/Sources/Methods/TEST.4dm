@@ -41,7 +41,6 @@ but you should set the values beforehand if the spreadsheet is to be parsed dire
 
 $values.TEST.A4:={formula: "SUM(A1:A3)"; format: "0.00"; value: $values.TEST.A1+$values.TEST.A2+$values.TEST.A3}
 
-
 $values.TEST.A5:={\
 value: "I have style y'all"; \
 bold: True:C214; \

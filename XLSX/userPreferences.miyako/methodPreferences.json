@@ -1,0 +1,76 @@
+{
+	"Sources/Classes/XLSX.4dm": {
+		"startSelection": 7,
+		"endSelection": 7,
+		"firstSelectedLine": 127,
+		"lastSelectedLine": 127,
+		"folding": [
+			12,
+			16,
+			20,
+			28,
+			37,
+			64
+		],
+		"bookmarks": [],
+		"stamp": ""
+	},
+	"Sources/Classes/_XLSXUI_Controller.4dm": {
+		"startSelection": 19,
+		"endSelection": 19,
+		"firstSelectedLine": 0,
+		"lastSelectedLine": 0,
+		"folding": [],
+		"bookmarks": [],
+		"stamp": "2025-09-19T00:17:31.491Z"
+	},
+	"Sources/Methods/TEST.4dm": {
+		"startSelection": 112,
+		"endSelection": 112,
+		"firstSelectedLine": 40,
+		"lastSelectedLine": 40,
+		"folding": [],
+		"bookmarks": [],
+		"stamp": ""
+	},
+	"Trash/Classes/_XLSXUI_Controller.4dm": {
+		"startSelection": 19,
+		"endSelection": 19,
+		"firstSelectedLine": 0,
+		"lastSelectedLine": 0,
+		"folding": [],
+		"bookmarks": [],
+		"stamp": "2025-09-19T00:17:31.491Z"
+	},
+	"Sources/Classes/_CLI.4dm": {
+		"startSelection": 0,
+		"endSelection": 0,
+		"firstSelectedLine": 129,
+		"lastSelectedLine": 129,
+		"folding": [],
+		"bookmarks": [],
+		"stamp": "2023-12-05T02:57:24.332Z"
+	},
+	"Sources/Classes/_XLSX_Controller.4dm": {
+		"startSelection": 38,
+		"endSelection": 38,
+		"firstSelectedLine": 25,
+		"lastSelectedLine": 25,
+		"folding": [],
+		"bookmarks": [],
+		"stamp": "2025-09-19T05:05:26.870Z"
+	},
+	"Sources/Classes/_CLI_Controller.4dm": {
+		"startSelection": 35,
+		"endSelection": 35,
+		"firstSelectedLine": 54,
+		"lastSelectedLine": 54,
+		"folding": [
+			142,
+			152,
+			157
+		],
+		"bookmarks": [],
+		"stamp": "2025-09-19T02:01:38.132Z"
+	}
+}

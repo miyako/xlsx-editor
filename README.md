@@ -19,6 +19,7 @@ basically `XSLX+JSON=XSLX`
 * set format
 * set styles
 * batch process
+* asynchronous function call (requires worker or dialog)
 
 ```4d
 /*

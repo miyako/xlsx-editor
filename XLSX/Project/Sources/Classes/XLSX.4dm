@@ -31,7 +31,7 @@ Function _fromPicture($picture : Picture; $codec : Text) : Text
 	var $blob : Blob
 	
 	CONVERT PICTURE:C1002($picture; $codec)
-	PICTURE TO BLOB:C692($picture; $blob)
+	PICTURE TO BLOB:C692($picture; $blob; $codec)
 	
 	return "data:"+$codec+";base64,"+This:C1470._fromBlob($blob)
 	

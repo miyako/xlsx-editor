@@ -152,7 +152,7 @@ Function update($option : Variant) : cs:C1710.XLSX
 						$datum.value:=This:C1470._fromBlob($c)
 					: ($vt=Is picture:K8:10)
 						$datum.value:=This:C1470._fromPicture($c; "image/png")
-					: ($vt=Is object:K8:27)
+					: ($vt=Is object:K8:27) || ($vt=Is collection:K8:32)
 						$datum.value:=JSON Stringify:C1217($c)
 					Else 
 						$datum.value:=$c

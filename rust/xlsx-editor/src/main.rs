@@ -7,6 +7,7 @@ use std::io::{self, Read};
 use serde::Deserialize;
 use serde_json::Value;
 use umya_spreadsheet::{reader, writer};
+use umya_spreadsheet::{Style};
 
 // JSON spec for a single edit
 #[derive(Debug, Deserialize)]
@@ -14,6 +15,9 @@ struct EditSpec {
     sheet: String,
     cell: String,
     value: Value, // allow string, number, bool, null, or even object/array
+#[serde(default)]
+    format: Option<String>, // optional number/date/other format
+    formula: Option<String>, 
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
@@ -80,27 +84,41 @@ fn main() -> Result<(), Box<dyn Error>> {
         let sheet = book.get_sheet_by_name_mut(&edit.sheet).expect("sheet exists");
 
         let cell_ref: &str = edit.cell.as_str();
-
+        let cell = sheet.get_cell_mut(cell_ref);
+        
+        // Set formula if specified
+        if let Some(f) = &edit.formula {
+            cell.set_formula(f);
+        }//else{
+        // Set value based on type
         match &edit.value {
             Value::String(s) => {
-                sheet.get_cell_mut(cell_ref).set_value(s);
+                cell.set_value(s);
             }
             Value::Number(num) => {
-                // write number as string; umya will detect numeric strings and store as number.
-                sheet.get_cell_mut(cell_ref).set_value(num.to_string());
+                // write number as string; umya will detect numeric strings and store as number. 
+                cell.set_value(num.to_string());
             }
             Value::Bool(b) => {
-                sheet.get_cell_mut(cell_ref).set_value_bool(*b);
+                cell.set_value_bool(*b);
             }
             Value::Null => {
-                sheet.get_cell_mut(cell_ref).set_value("");
+                cell.set_value("");
             }
             other => {
-                // For arrays/objects: store the JSON string representation
                 let as_text = serde_json::to_string(other)?;
-                sheet.get_cell_mut(cell_ref).set_value(as_text);
+                cell.set_value(as_text);
             }
-        }
+        }            
+        // }
+
+            // Apply optional format if provided
+            if let Some(fmt) = &edit.format {
+                let mut style = Style::default();
+                style.get_number_format_mut().set_format_code(fmt);
+                cell.set_style(style);
+            }
+
     }
 
     // Save to output file

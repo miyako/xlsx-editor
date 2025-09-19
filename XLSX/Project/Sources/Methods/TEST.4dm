@@ -25,7 +25,55 @@ $values:={}
 $values.TEST:={}
 $values.TEST.D10:="miyako"
 $values.TEST.D12:="kesuke.miyako@4d.com"
-$values.TEST.D14:=!1974-09-22!
+$values.TEST.D14:=!1974-09-22!  //simple value
+$values.TEST.D14:={value: !1974-09-22!; format: "dd-mm-yyyy"}  //value with format specifier
+
+$values.TEST.A1:=1.23456
+$values.TEST.A2:=2.34567
+$values.TEST.A3:=3.45678
+
+/*
+
+applications like Microsoft Excel automatically recalculate formula when a file is opening
+but you should set the values beforehand if the spreadsheet is to be parsed directly
+
+*/
+
+$values.TEST.A4:={formula: "SUM(A1:A3)"; format: "0.00"; value: $values.TEST.A1+$values.TEST.A2+$values.TEST.A3}
+
+
+$values.TEST.A5:={\
+value: "I have style y'all"; \
+bold: True:C214; \
+italic: True:C214; \
+size: 14; \
+font: "Arial"; \
+stroke: "FFFF0000"; \
+fill: "FFFFFF00"; \
+h: "center"; \
+v: "center"; \
+l: {style: "thin"; color: "FF0000FF"}; \
+r: {style: "thin"; color: "FF0000FF"}; \
+t: {style: "double"; color: "FF00FF00"}; \
+b: {style: "double"; color: "FF00FF00"}}
+
+/*
+
+border styles
+
+"none" (default)
+"thin"
+"medium"
+"thick"
+"dashed"
+"dotted"
+"double"
+"hair"
+"mediumDashed"
+"dashDot"
+"mediumDashDot"
+
+*/
 
 var $outputFile : 4D:C1709.File
 $outputFile:=Folder:C1567(fk desktop folder:K87:19).file("test.xlsx")
@@ -35,16 +83,15 @@ $XLSX:=cs:C1710.XLSX.new()
 
 /*
 
-sync syntax (1 pass: use object)
+1 pass: use object
 
 */
 
-//$XLSX.update({file: $templateFile; values: $values; output: $outputFile})
-
+$XLSX.update({file: $templateFile; values: $values; output: $outputFile})
 
 /*
 
-sync syntax (3 passes: use collection of objects)
+3 passes: use collection of objects
 
 */
 
@@ -54,8 +101,3 @@ If (True:C214)
 		{file: $templateFile; values: $values; output: Folder:C1567(fk desktop folder:K87:19).file("2.xlsx")}; \
 		{file: $templateFile; values: $values; output: Folder:C1567(fk desktop folder:K87:19).file("3.xlsx")}])
 End if 
-/*
-
-async syntax (must use in a worker or dialog)
-
-*/

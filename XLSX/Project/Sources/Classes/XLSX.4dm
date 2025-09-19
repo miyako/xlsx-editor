@@ -81,8 +81,6 @@ Function update($option : Variant) : cs:C1710.XLSX
 	
 	var $commands : Collection
 	$commands:=[]
-	var $workers : Collection
-	$workers:=[]
 	
 	For each ($option; $options)
 		
@@ -140,6 +138,17 @@ Function update($option : Variant) : cs:C1710.XLSX
 				var $c : Variant
 				$c:=$value[$cell]
 				
+				If (Value type:C1509($c)=Is object:K8:27)
+					//get format,formula
+					If ($c.format#Null:C1517) && (Value type:C1509($c.format)=Is text:K8:3)
+						$datum.format:=$c.format
+					End if 
+					If ($c.formula#Null:C1517) && (Value type:C1509($c.formula)=Is text:K8:3)
+						$datum.formula:=$c.formula
+					End if 
+					$c:=$c.value
+				End if 
+				
 				var $vt : Integer
 				$vt:=Value type:C1509($c)
 				
@@ -169,14 +178,10 @@ Function update($option : Variant) : cs:C1710.XLSX
 		$command+=" "
 		$command+=This:C1470.escape(This:C1470.expand($output).path)
 		
+		var $worker : 4D:C1709.SystemWorker
 		$worker:=This:C1470.controller.execute($command; $data).worker
-		$workers.push($worker)
-		
-	End for each 
-	
-	var $worker : 4D:C1709.SystemWorker
-	For each ($worker; $workers)
 		$worker.wait()
+		
 	End for each 
 	
 	return This:C1470

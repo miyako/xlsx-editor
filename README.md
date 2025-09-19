@@ -12,6 +12,14 @@ also 4D component implementation
 
 basically `XSLX+JSON=XSLX`
 
+## features
+
+* set value (date, number, boolean, text, null=`""`)
+* set formula (ex. `SUM(A1:A10)`)
+* set format
+* set styles
+* batch process
+
 ```4d
 /*
 	

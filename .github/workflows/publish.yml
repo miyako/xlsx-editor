@@ -66,6 +66,7 @@ jobs:
         with:
           project_path: ${{ steps.configure.outputs.project_path }}
           pack_project: 'true'
+          use_standard_zip: 'true'
 
       - name: setup keychain 
         id: keychain

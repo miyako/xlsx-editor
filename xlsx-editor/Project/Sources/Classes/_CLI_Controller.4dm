@@ -122,6 +122,11 @@ Function _execute()
 	
 	var $vt : Integer
 	$vt:=Value type:C1509($message)
+	
+	If ($vt=Is object:K8:27) && (OB Instance of:C1731($message; 4D:C1709.Blob))
+		$vt:=Is BLOB:K8:12
+	End if 
+	
 	Case of 
 		: ($vt=Is object:K8:27) || ($vt=Is collection:K8:32)
 			

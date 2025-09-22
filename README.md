@@ -4,9 +4,7 @@
 ![downloads](https://img.shields.io/github/downloads/miyako/xlsx-editor/total)
 
 # xlsx-editor
-CLI to set spreadsheet cells values (rust)
-
-also 4D component implementation
+tool to set spreadsheet cells values (namespace: `XLSX`)
 
 ## abstract
 

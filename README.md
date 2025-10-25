@@ -4,7 +4,7 @@
 ![downloads](https://img.shields.io/github/downloads/miyako/xlsx-editor/total)
 
 # xlsx-editor
-tool to set spreadsheet cells values (namespace: `XLSX`)
+Tool to set spreadsheet cells values (namespace: `XLSX`)
 
 ## abstract
 

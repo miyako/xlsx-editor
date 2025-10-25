@@ -6,6 +6,8 @@
 # xlsx-editor
 Tool to set spreadsheet cells values (namespace: `XLSX`)
 
+Using [umya-spreadsheet](https://crates.io/crates/umya-spreadsheet/)
+
 ## abstract
 
 basically `XSLX+JSON=XSLX`

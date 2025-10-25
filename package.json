@@ -1,6 +1,6 @@
 {
   "name": "xlsx-editor",
-  "description": "CLI to set spreadsheet cells values (rust)",
+  "description": "Tool to set spreadsheet cells values",
   "author": [
     "Keisuke Miyako <keisuke.miyako@4D.com>"
   ],
